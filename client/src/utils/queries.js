@@ -12,7 +12,7 @@ query thoughts($username: String) {
             _id
             createdAt
             username
-            reactionBoudy
+            reactionBody
         }
     }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
 import { ADD_THOUGHT } from '../../utils/mutations';
+import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
 
 const ThoughtForm = () => {
     const [thoughtText, setText] = useState('');
@@ -23,23 +23,23 @@ const ThoughtForm = () => {
             }
 
             // update thought array's cache
-            const { thoughts } = cache.readQuery({ QUERY_THOUGHTS });
+            const { thoughts } = cache.readQuery({ query: QUERY_THOUGHTS });
 
             // prepend the newest thought to the front of the array
             cache.writeQuery({
                 query: QUERY_THOUGHTS,
-                data: { thoughts: [addThought, ...thoughts] }
+                data: { thoughts: [addThought, ...thoughts] },
             });
         }
     });
 
-    const handleChange = event => {
+    const handleChange = (event) => {
         if (event.target.value.length <= 280) {
             setText(event.target.value);
             setCharacterCount(event.target.value.length);
         }
     };
-    const handleFormSubmit = async event => {
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
 
         try {
